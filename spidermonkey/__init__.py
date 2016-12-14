@@ -3,6 +3,12 @@ import subprocess
 
 from pkg_resources import resource_filename
 
+# Python 3 support
+try:
+  basestring
+except NameError:
+  basestring = (str, bytes)
+
 
 __all__ = 'Spidermonkey',
 
