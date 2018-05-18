@@ -1,13 +1,16 @@
+import locale
 import os
 import subprocess
+import sys
 
 from pkg_resources import resource_filename
 
-# Python 3 support
 try:
-  basestring
+    basestring
 except NameError:
-  basestring = (str, bytes)
+    basestring = (str, bytes)
+
+IS_PY36PLUS = sys.version_info.major >= 3 and sys.version_info.minor >= 6
 
 
 __all__ = 'Spidermonkey',
@@ -81,6 +84,11 @@ class Spidermonkey(subprocess.Popen):
 
         if script_args:
             cmd.extend(script_args)
+
+        if IS_PY36PLUS:
+            kw['encoding'] = locale.getpreferredencoding(False)
+        else:
+            kw['universal_newlines'] = True
 
         super(Spidermonkey, self).__init__(cmd, stdin=stdin, stdout=stdout,
                                            stderr=stderr, **kw)
