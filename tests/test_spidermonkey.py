@@ -39,15 +39,13 @@ def test_script_file():
 def test_multi_scripts():
     """Test that when multiple scripts are passed, they're all executed."""
 
-    CODE = ('print(version())',
-            'version(185)',
-            'print(version())',
+    CODE = ('print("Hi")',
             'print("Hello")')
 
     proc = Spidermonkey(early_script_file='-', code=CODE)
     stdout, stderr = proc.communicate('print("World")')
 
-    assert (stdout, stderr) == ('0\n185\nHello\nWorld\n', '')
+    assert (stdout, stderr) == ('Hi\nHello\nWorld\n', '')
     assert proc.returncode == 0
 
 
