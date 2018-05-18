@@ -3,3 +3,6 @@
 *.pyo
 build/
 dist/
+spidermonkey/
+__pycache__/
+.pytest_cache/
